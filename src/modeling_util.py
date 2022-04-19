@@ -6,9 +6,6 @@ from IPython.display import display, clear_output
 import plotly_express as px
 from plotly.subplots import make_subplots
 
-# import cufflinks as cf; cf.go_offline()
-# import plotly_express as px
-# import ipywidgets as widgets
 
 #create the datasets according to input parameters
 # returned df has col 'x', 'y' and target: col 'label' with categories A or B
@@ -59,16 +56,6 @@ def plot_CV_DIFF_E(df, n, nl, data_type, clf_type):
     fig.update_yaxes(title_text= 'Accuracy Delta', secondary_y= False)
     return fig
 
-# #plot DIFF_E vs model (log) paramter per dataset
-# def plot_CV_DIFF_vs_n(df, model_param, nl, data_type, clf_type):
-#     ds_rdata = df.query('noise_lvl == @nl and data_type == @data_type and model == @clf_type and model_param == @model_param')
-#     fig = px.line(ds_rdata, x='n', y=['E_DIFF'], log_x= True, color_discrete_sequence=px.colors.qualitative.Alphabet)
-#     line_1 = f'Train-Val Delta Accuracy by <b>{clf_type}</b> n Sample Size <br>'
-#     line_2 = f'         Dataset: noise= {nl}, data_type= {data_type}, model_param= {model_param}'
-#     fig.update_layout(title_text= line_1 + line_2)
-#     fig.update_yaxes(title_text= 'Accuracy Delta', secondary_y= False)
-#     return fig
-
 
 #used in Q4
 #plot DIFF_E vs model (log) paramter per dataset
@@ -87,84 +74,6 @@ def plot_CV_DIFF_vs_n2(df, model_param, nl, data_type, clf_type):
     line_2 = f'         Dataset: noise= {nl}, data_type= {data_type}, model_param= {model_param}'
     subfig.update_layout(title_text= line_1 + line_2)
     return subfig
-
-# #plot E_DIFF vs model (log) paramter per dataset
-# #plot_CV_DIFF_vs_n3(smallest_E_df, nl, data_type)
-# def plot_CV_DIFF_vs_n3(df, nl, data_type):
-#     ds_rdata_svm = df.query('noise_lvl == @nl and data_type == @data_type and model == "svm"')
-#     ds_rdata_svm = ds_rdata_svm.rename(columns={'E_DIFF': 'SVM_E_DIFF'})
-#     ds_rdata_log = df.query('noise_lvl == @nl and data_type == @data_type and model == "logistic"')
-#     ds_rdata_log = ds_rdata_log.rename(columns={"E_DIFF": "Logistic_E_DIFF"})
-#     subfig = make_subplots(specs=[[{"secondary_y": False}]])
-#     fig = px.line(ds_rdata_svm, x='n', y=['SVM_E_DIFF'], log_x= True, color_discrete_sequence=px.colors.qualitative.Alphabet, render_mode="webgl",)
-#     fig2 = px.line(ds_rdata_log, x='n', y=['Logistic_E_DIFF'], log_x= True, render_mode="webgl",)
-#     #fig2.update_traces(yaxis="y2")
-#     subfig.add_traces(fig.data + fig2.data)
-#     subfig.layout.xaxis.title="n Sample Size"
-#     subfig.layout.xaxis.type="log"
-#     subfig.layout.yaxis.title="Accuracy Delta"
-#     #subfig.layout.yaxis2.title="Accuracy"
-#     line_1 = f'Models Train-Val Delta Accuracy (E_DIFF) by n Sample Size <br>'
-#     line_2 = f'         Dataset: noise= {nl}, data_type= {data_type}'
-#     subfig.update_layout(title_text= line_1 + line_2)
-#     return subfig
-
-# #
-# def plot_CV_DIFF_vs_n4(df, nl, data_type):
-#     ds_rdata_svm = df.query('noise_lvl == @nl and data_type == @data_type and model == "svm"')
-#     ds_rdata_svm = ds_rdata_svm.rename(columns={'TESTE': 'SVM_TESTE'})
-#     ds_rdata_log = df.query('noise_lvl == @nl and data_type == @data_type and model == "logistic"')
-#     ds_rdata_log = ds_rdata_log.rename(columns={"TESTE": "Logistic_TESTE"})
-#     subfig = make_subplots(specs=[[{"secondary_y": False}]])
-#     fig = px.line(ds_rdata_svm, x='n', y=['SVM_TESTE'], log_x= True, color_discrete_sequence=px.colors.qualitative.Alphabet, render_mode="webgl",)
-#     fig2 = px.line(ds_rdata_log, x='n', y=['Logistic_TESTE'], log_x= True, render_mode="webgl",)
-#     #fig2.update_traces(yaxis="y2")
-#     subfig.add_traces(fig.data + fig2.data)
-#     subfig.layout.xaxis.title="n Sample Size"
-#     subfig.layout.xaxis.type="log"
-#     subfig.layout.yaxis.title="Accuracy"
-#     #subfig.layout.yaxis2.title="Accuracy"
-#     line_1 = f'Models Train-Val Accuracy (TESTE) by n Sample Size <br>'
-#     line_2 = f'         Dataset: noise= {nl}, data_type= {data_type}'
-#     subfig.update_layout(title_text= line_1 + line_2)
-#     return subfig
-
-#per data type and model plot Accuracy of each noise level (vs n sample size)
-# def plot_CV_DIFF_vs_n5(df, data_type, clf_type):
-#     ds_rdata = df.query('data_type == @data_type and model == @clf_type')
-#     table = pd.pivot_table(ds_rdata, values='TESTE', index=['n'], columns=['noise_lvl'], aggfunc=np.mean).reset_index()
-#     table = table.rename(columns={0.0: "nl 0.0", 0.1: "nl 0.1", 0.2: "nl 0.2", 0.3: "nl 0.3", 0.4: "nl 0.4", 0.5: "nl 0.5"})
-#     fig = px.line(table, x='n', y=["nl 0.0", "nl 0.1", "nl 0.2", "nl 0.3", "nl 0.4", "nl 0.5"], log_x= True)
-#     fig.update_layout(title_text= f'Test Accuracy by <b>{clf_type}</b> for data_type <b>{data_type}</b>')
-#     fig.update_yaxes(title_text= 'Accuracy', secondary_y=False)
-#     return fig
-
-
-# #per data type and model plot Accuracy of each noise level (vs n sample size)
-# def plot_CV_DIFF_vs_n5(df, data_type, clf_type):
-#     ds_rdata = df.query('data_type == @data_type and model == @clf_type')
-#     fig = px.line(ds_rdata, x='n', y='TESTE', color= 'noise_lvl', log_x= True)
-#     fig.update_layout(title_text= f'Test Accuracy by <b>{clf_type}</b> for data_type <b>{data_type}</b>')
-#     fig.update_yaxes(title_text= 'Accuracy', secondary_y=False)
-#     return fig
-
-
-# #per data type and model plot Accuracy of each noise level (vs n sample size)
-# def plot_CV_DIFF_vs_n5(df, data_type, clf_type):
-#     ds_rdata = df.query('data_type == @data_type and model == @clf_type')
-#     subfig = make_subplots(specs=[[{"secondary_y": True}]])
-#     fig = px.line(ds_rdata, x='n', y=['E_DIFF'], color = 'noise_lvl', render_mode="webgl",)
-#     fig2 = px.line(ds_rdata, x='n', y=['TESTE'], color = 'noise_lvl', render_mode="webgl",color_discrete_sequence=px.colors.qualitative.Alphabet,)
-#     fig2.update_traces(yaxis="y2", showlegend = False, )
-#     subfig.add_traces(fig.data + fig2.data)
-#     subfig.layout.xaxis.title="n Sample Size"
-#     subfig.layout.xaxis.type="log"
-#     subfig.layout.yaxis.title="Accuracy Delta"
-#     subfig.layout.yaxis2.title="Accuracy"
-#     line_1 = f'Accuracy and Error Difference by <b>{clf_type}</b> Model vs n Sample Size <br>'
-#     line_2 = f'         Dataset: data_type= {data_type}'
-#     subfig.update_layout(title_text= line_1 + line_2, )
-#     return subfig
 
 
 #used in Q6
